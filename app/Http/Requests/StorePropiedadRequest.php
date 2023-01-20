@@ -29,9 +29,10 @@ class StorePropiedadRequest extends FormRequest
             'arriendo' => ['required','integer'],
             'venta' => ['required','integer'],
             'baños' => ['required','integer'],
-            'tipo' => ['required',Rule::in(['Oficina','Departamentp','Casa'])],
+            'tipo' => ['required',Rule::in(['Oficina','Departamento','Casa'])],
             'construido' => ['required','integer'],
             'terreno' => ['required','integer'],
+            'user_id'=> ['required',Rule::in([auth()->id()])]
         ];
     }
     public function messages()

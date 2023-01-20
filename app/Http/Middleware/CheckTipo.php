@@ -21,7 +21,7 @@ class CheckTipo
             return redirect('/login');
         }
         if (Auth::user()->tipo != 'administrador') {
-            return redirect('/');
+            return redirect('/home');
         }
         return $next($request);
     }

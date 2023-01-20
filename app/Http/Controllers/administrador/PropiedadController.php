@@ -9,10 +9,7 @@ use App\Models\Propiedad;
 
 class PropiedadController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +17,7 @@ class PropiedadController extends Controller
      */
     public function index()
     {
-        $propiedades = Propiedad::all();
+        $propiedades = Propiedad::withTrashed()->get();
         return view('propiedades.index')->with('propiedades', $propiedades);
     }
 
@@ -31,14 +28,12 @@ class PropiedadController extends Controller
      */
     public function create()
     {
-        // $user = Auth::user();
-        return view('propiedades.create') /*->with('user', $user)*/;
+        //
     }
 
     public function store(StorePropiedadRequest $request)
     {
-        Propiedad::create($request->validated());
-        return redirect('propiedades')->withSuccess('Propiedad agregada con exito');
+        //
     }
 
     /**
