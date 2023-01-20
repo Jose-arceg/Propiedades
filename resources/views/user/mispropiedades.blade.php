@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <body>
         <div class="container">
             @include('mensajes.user')
@@ -36,7 +37,7 @@
                             {{ __('Metros cuadrados de terreno') }}
                         </th>
                         <th>
-                            {{ __('Acciones')}}
+                            {{ __('Acciones') }}
                         </th>
                     </tr>
                 </thead>
@@ -75,7 +76,6 @@
                                 </form>
                             </td>
                         </tr>
-                        
                     @endforeach
                 </tbody>
             </table>

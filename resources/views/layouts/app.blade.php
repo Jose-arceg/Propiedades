@@ -42,29 +42,31 @@
                     <!-- Left Side Of Navbar -->
                     @guest
                     @else
-                        @if(Auth::user()->tipo=='administrador')
-                        <div class="dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ __('Propiedades') }}
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="/propiedades">{{ __('Ver propiedades') }}</a></li>
-                                </li>
-                            </ul>
-                        </div>
+                        @if (Auth::user()->tipo == 'administrador')
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('Propiedades') }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="/propiedades">{{ __('Ver propiedades') }}</a></li>
+                                    </li>
+                                </ul>
+                            </div>
                         @else
-                        <div class="dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ __('Propiedades') }}
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="/mispropiedades">{{ __('Ver mis propiedades') }}</a></li>
-                                <li><a class="dropdown-item" href="/crearpropiedades">{{ __('Agregar propiedades') }}</a>
-                                </li>
-                            </ul>
-                        </div>
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('Propiedades') }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="/mispropiedades">{{ __('Ver mis propiedades') }}</a>
+                                    </li>
+                                    <li><a class="dropdown-item"
+                                            href="/crearpropiedades">{{ __('Agregar propiedades') }}</a>
+                                    </li>
+                                </ul>
+                            </div>
                         @endif
                     @endguest
                     <!-- Right Side Of Navbar -->

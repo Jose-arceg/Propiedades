@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Propiedad;
 use App\Http\Requests\StorePropiedadRequest;
+use App\Models\Propiedad;
 
 class PropiedadesController extends Controller
 {
@@ -14,15 +13,14 @@ class PropiedadesController extends Controller
         $this->middleware('auth');
     }
     public function mispropiedades()
-
-        {
-            $propiedades = Propiedad::where('user_id' , auth()->id())->get();
-            return view('user.mispropiedades')->with('propiedades', $propiedades);
-        }
-    
-        public function crearpropiedades()
     {
-        return view('user.crearpropiedades') ;
+        $propiedades = Propiedad::where('user_id', auth()->id())->get();
+        return view('user.mispropiedades')->with('propiedades', $propiedades);
+    }
+
+    public function crearpropiedades()
+    {
+        return view('user.crearpropiedades');
     }
 
     public function insertarpropiedades(StorePropiedadRequest $request)

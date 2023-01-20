@@ -78,7 +78,7 @@
                     </span>
                 @enderror
             </div>
-            <input type="hidden" name="user_id" id="user_id" value="{{auth()->id()}}">
+            <input type="hidden" name="user_id" id="user_id" value="{{ auth()->id() }}">
             <input type="submit" class="btn btn-success" value="Agregar producto">
             <a href="{{ url('productos') }}" class="btn btn-primary">Regresar</a>
         </form>
