@@ -13,6 +13,20 @@
                     </span>
                 @enderror
             </div>
+            <div class="form-group">
+                <label for="condicion" class="control-label">{{ __('Condicion') }}</label>
+                <select name="condicion" id="condicion" class="form-control">
+                    <option value="">---Selecciona una Opcion---</option>
+                    <option value="new">{{ __('Nueva') }}</option>
+                    <option value="used">{{ __('Usada') }}</option>
+                    <option value="noot_specified">{{ __('No especifica') }}</option>
+                </select>
+                @error('condicion')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
 
             <div class="form-group">
                 <label for="arriendo" class="control-label">{{ __('Valor de arriendo') }}</label>
@@ -53,6 +67,26 @@
                 <input type="number" class="form-control @error('baños') is-invalid @enderror" name="baños"
                     id="baños" value="{{ old('baños') }}">
                 @error('baños')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="piezas" class="control-label">{{ __('Cantidad de piezas') }}</label>
+                <input type="number" class="form-control @error('piezas') is-invalid @enderror" name="piezas"
+                    id="piezas" value="{{ old('piezas') }}">
+                @error('piezas')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="estacionamiento" class="control-label">{{ __('Cantidad de estacionamiento') }}</label>
+                <input type="number" class="form-control @error('estacionamiento') is-invalid @enderror" name="estacionamiento"
+                    id="estacionamiento" value="{{ old('estacionamiento') }}">
+                @error('estacionamiento')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

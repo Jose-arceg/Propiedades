@@ -15,10 +15,13 @@ class Propiedad extends Model
 
     protected $fillable = [
         'nombre',
+        'condicion',
         'arriendo',
         'venta',
         'estado',
         'baños',
+        'piezas',
+        'estacionamiento',
         'tipo',
         'construido',
         'terreno',

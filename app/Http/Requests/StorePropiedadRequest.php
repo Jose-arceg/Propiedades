@@ -26,9 +26,12 @@ class StorePropiedadRequest extends FormRequest
     {
         return [
             'nombre' => ['required','string'],
+            'condicion' => ['required','string'],
             'arriendo' => ['required','integer'],
             'venta' => ['required','integer'],
             'baños' => ['required','integer'],
+            'piezas' => ['required','integer'],
+            'estacionamiento' => ['required','integer'],
             'tipo' => ['required',Rule::in(['Oficina','Departamento','Casa'])],
             'construido' => ['required','integer'],
             'terreno' => ['required','integer'],
@@ -45,6 +48,10 @@ class StorePropiedadRequest extends FormRequest
             'venta.integer' => 'El valor de venta debe ser un numero entero',
             'baños.required' => 'La cantidad de baños es requerida',
             'baños.integer' => 'El valor de la cantidad de baños debe ser un numero entero',
+            'piezas.required' => 'La cantidad de piezas es requerida',
+            'piezas.integer' => 'El valor de la cantidad de piezas debe ser un numero entero',
+            'estacionamiento.required' => 'La cantidad de estacionamiento es requerida',
+            'estacionamiento.integer' => 'El valor de la cantidad de estacionamiento debe ser un numero entero',
             'tipo.required' => 'El tipo de la propiedad es requerido',
             'tipo.in' => 'El tipo de propiedad solo puede ser "Oficina","Departamento" o "Casa"',
             'construido.required' => 'La cantidad de de metros construidos es requerida',
