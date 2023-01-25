@@ -25,17 +25,17 @@ class StorePropiedadRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => ['required','string'],
-            'condicion' => ['required','string'],
-            'arriendo' => ['required','integer'],
-            'venta' => ['required','integer'],
-            'baños' => ['required','integer'],
-            'piezas' => ['required','integer'],
-            'estacionamiento' => ['required','integer'],
-            'tipo' => ['required',Rule::in(['Oficina','Departamento','Casa'])],
-            'construido' => ['required','integer'],
-            'terreno' => ['required','integer'],
-            'user_id'=> ['required',Rule::in([auth()->id()])]
+            'nombre' => ['required', 'string'],
+            'condicion' => ['required', 'string'],
+            'arriendo' => ['required', 'integer'],
+            'venta' => ['required', 'integer'],
+            'baños' => ['required', 'integer'],
+            'piezas' => ['required', 'integer'],
+            'estacionamiento' => ['required', 'integer'],
+            'tipo' => ['required', Rule::in(['Oficina', 'Departamento', 'Casa'])],
+            'construido' => ['required', 'integer'],
+            'terreno' => ['required', 'integer'],
+            'user_id' => ['required', Rule::in([auth()->id()])],
         ];
     }
     public function messages()

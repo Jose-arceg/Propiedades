@@ -25,7 +25,7 @@ class Propiedad extends Model
         'tipo',
         'construido',
         'terreno',
-        'user_id'
+        'user_id',
 
     ];
 
