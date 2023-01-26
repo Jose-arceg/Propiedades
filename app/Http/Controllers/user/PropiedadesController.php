@@ -37,14 +37,18 @@ class PropiedadesController extends Controller
         $propiedad = Propiedad::where('id', $id)->first();
         $propiedad->delete();
         return redirect('mispropiedades')->withDeleted("Propiedad Deshabilitado con exito");
-    }
+    }        
+    //TODO: categorias fotos
 
     public function publicar(Request $request)
     {
-        //TODO: categorias fotos 
 
-        dd($request);
-        /*
+        $imagenes = [];
+        $source = $request->input('source');
+        foreach ($source as $s) {
+         array_push($imagenes,  $s);
+        }
+        dd($imagenes);
     $client = new \GuzzleHttp\Client();
     $response = $client->request('POST', 'https://api.mercadolibre.com/items', [
     'headers' => [
@@ -53,23 +57,19 @@ class PropiedadesController extends Controller
     'Ocp-Apim-Subscription-Key' => env('KEY'),
     ],
     'json' => [
-    "title"=> "$request->nombre",
-    "category_id"=> "MLA401686",
+    "title"=> $request->nombre,
+    "category_id"=> "MLC1459",
     "price"=> $request->venta,
     "currency_id"=> "CLP",
     "available_quantity"=> 1,
     "buying_mode"=> "classified",
     "listing_type_id"=> "silver",
-    "condition"=> "$request->condicion",
+    "condition"=> $request->condicion,
     "channels" =>
     [
     "marketplace"
     ],
-    "pictures" => [
-    [
-    "source" => "http://mla-d2-p.mlstatic.com/item-de-test-no-ofertar-543605-MLA25041518406_092016-O.jpg?square=false"
-    ]
-    ],
+    "pictures" => $imagenes,
     "seller_contact" => [
     "contact" => "$request->vendedor",
     "other_info" => "$request->info",
@@ -80,10 +80,10 @@ class PropiedadesController extends Controller
     "email" => "$request->email",
     "webmail" => ""],
     "location" => [
-    "address_line" => $request->Direccion,
+    "address_line" => $request->direccion,
     "zip_code" => "01234567",
     "neighborhood" => [
-    "id" => "TUxBQlBBUzgyNjBa"
+    "id" => $request->Barrio
     ],
     "latitude" => $request->latitude,
     "longitude" => $request->lonngitude
@@ -107,18 +107,18 @@ class PropiedadesController extends Controller
     ],
     [
     "id" => "COVERED_AREA",
-    "value_name" => $requset->construido " m²"
+    "value_name" => $request->construido +  " m²"
     ],
     [
     "id" => "TOTAL_AREA",
-    "value_name" => $requset->terreno " m²"
+    "value_name" => $request->terreno + " m²"
     ]
     ],
     "video_id" => "gqkEN9poKM;matterport",
     "description" => "This is the real estate property description. \n"
     ]
     ]);
-    $data = json_decode($response->getBody()->getContents());*/
+    $data = json_decode($response->getBody()->getContents());
     }
 
     public function comunas(Request $request)
@@ -159,7 +159,7 @@ class PropiedadesController extends Controller
     public function location(Request $request)
     {
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://api.mercadolibre.com/classified_locations/neighborhoods/'. $request->barrio. '', [
+        $response = $client->request('GET', 'https://api.mercadolibre.com/classified_locations/neighborhoods/' . $request->barrio . '', [
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Cache-Control' => 'no-cache',

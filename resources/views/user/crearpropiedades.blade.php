@@ -42,8 +42,11 @@
                 <input type="text" id="_latitude" name="latitude" value="">
                 <input type="text" id="_longitude" name="longitude" value="">
                 <div class=" form-group">
-                    <label for="Direccion">{{ __('Direccion') }}</label>
-                    <input type="text" class="form-control" name="Direccion" id="Direccion">
+                    <label for="direccion">{{ __('Direccion') }}</label>
+                    <input type="text" class="form-control" name="direccion" id="direccion">
+                </div>
+                <div class="form-group" id="sources">
+                    <button onclick="createInput()">Añadir foto</button>
                 </div>
         </div>
         <div class="derecha">
@@ -236,6 +239,25 @@
                 document.getElementById("_longitude").value = data.lista.longitude;
             }).catch(error => console.error(error));
         })
+        let count = 0;
+
+        function createInput() {
+            if (count < 6) {
+                count++;
+                var sources = document.getElementById("sources");
+                var input = document.createElement("input");
+                input.type = "text";
+                input.setAttribute("style", "margin-top: 10px;");
+                input.class = "form-control";
+                input.id = "";
+                input.name = "source[]";
+                input.placeholder =
+                    "https://empresas.blogthinkbig.com/wp-content/uploads/2019/11/Imagen3-245003649.jpg?w=800";
+                sources.appendChild(input);
+
+            }
+
+        }
     </script>
 @endsection
 <style>
@@ -253,5 +275,14 @@
 
     .izquierda {
         grid-area: 2 / 2 / 8 / 4;
+    }
+
+    #sources {
+        display: block;
+        width: 100%;
+    }
+
+    input[type=text] {
+        width: 100%;
     }
 </style>
