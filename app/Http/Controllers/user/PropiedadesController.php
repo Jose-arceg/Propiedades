@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePropiedadRequest;
+use App\Models\imagenes;
 use App\Models\Propiedad;
 use App\Models\Region;
 use Illuminate\Http\Request;
@@ -37,18 +38,28 @@ class PropiedadesController extends Controller
         $propiedad = Propiedad::where('id', $id)->first();
         $propiedad->delete();
         return redirect('mispropiedades')->withDeleted("Propiedad Deshabilitado con exito");
-    }        
+    }
     //TODO: categorias fotos
 
     public function publicar(Request $request)
     {
-
-        $imagenes = [];
-        $source = $request->input('source');
-        foreach ($source as $s) {
-         array_push($imagenes,  $s);
-        }
-        dd($imagenes);
+        /*$sources = $request->file('source');
+        if ($request->hasFile('source')) {
+            foreach ($sources as $source) {
+                $destination_path = '/public/images';
+                $imagen = [];
+                $imagen_name = $source->getClientOriginalName();
+                $path = $source->storeAs($destination_path, $imagen_name);
+                $imagen['image'] = $imagen_name;
+                imagenes::Create($imagen);
+            }
+        }*/
+        
+    $imagenes = [];
+    $source = $request->input('source');
+    foreach ($source as $s) {
+    array_push($imagenes,  $s);
+    }
     $client = new \GuzzleHttp\Client();
     $response = $client->request('POST', 'https://api.mercadolibre.com/items', [
     'headers' => [
@@ -118,7 +129,7 @@ class PropiedadesController extends Controller
     "description" => "This is the real estate property description. \n"
     ]
     ]);
-    $data = json_decode($response->getBody()->getContents());
+        $data = json_decode($response->getBody()->getContents());
     }
 
     public function comunas(Request $request)
