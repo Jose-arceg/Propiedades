@@ -4,7 +4,6 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePropiedadRequest;
-use App\Models\imagenes;
 use App\Models\Propiedad;
 use App\Models\Region;
 use Illuminate\Http\Request;
@@ -41,95 +40,95 @@ class PropiedadesController extends Controller
     }
     //TODO: categorias fotos
 
+    /*$sources = $request->file('source');
+    if ($request->hasFile('source')) {
+    foreach ($sources as $source) {
+    $destination_path = '/public/images';
+    $imagen = [];
+    $imagen_name = $source->getClientOriginalName();
+    $path = $source->storeAs($destination_path, $imagen_name);
+    $imagen['image'] = $imagen_name;
+    imagenes::Create($imagen);
+    }
+    }*/
     public function publicar(Request $request)
     {
-        /*$sources = $request->file('source');
-        if ($request->hasFile('source')) {
-            foreach ($sources as $source) {
-                $destination_path = '/public/images';
-                $imagen = [];
-                $imagen_name = $source->getClientOriginalName();
-                $path = $source->storeAs($destination_path, $imagen_name);
-                $imagen['image'] = $imagen_name;
-                imagenes::Create($imagen);
-            }
-        }*/
-        
-    $imagenes = [];
-    $source = $request->input('source');
-    foreach ($source as $s) {
-    array_push($imagenes,  $s);
-    }
-    $client = new \GuzzleHttp\Client();
-    $response = $client->request('POST', 'https://api.mercadolibre.com/items', [
-    'headers' => [
-    'Content-Type' => 'application/json',
-    'Cache-Control' => 'no-cache',
-    'Ocp-Apim-Subscription-Key' => env('KEY'),
-    ],
-    'json' => [
-    "title"=> $request->nombre,
-    "category_id"=> "MLC1459",
-    "price"=> $request->venta,
-    "currency_id"=> "CLP",
-    "available_quantity"=> 1,
-    "buying_mode"=> "classified",
-    "listing_type_id"=> "silver",
-    "condition"=> $request->condicion,
-    "channels" =>
-    [
-    "marketplace"
-    ],
-    "pictures" => $imagenes,
-    "seller_contact" => [
-    "contact" => "$request->vendedor",
-    "other_info" => "$request->info",
-    "area_code" => "56 9",
-    "phone" => "$request->telefono",
-    "area_code2" => "",
-    "phone2" => "",
-    "email" => "$request->email",
-    "webmail" => ""],
-    "location" => [
-    "address_line" => $request->direccion,
-    "zip_code" => "01234567",
-    "neighborhood" => [
-    "id" => $request->Barrio
-    ],
-    "latitude" => $request->latitude,
-    "longitude" => $request->lonngitude
-    ],
-    "attributes" => [
-    [
-    "id" => "ROOMS",
-    "value_name" => "$request->piezas"
-    ],
-    [
-    "id" => "FULL_BATHROOMS",
-    "value_name" => "$request->baños"
-    ],
-    [
-    "id" => "PARKING_LOTS",
-    "value_name" => "$request->estacionamiento"
-    ],
-    [
-    "id" => "BEDROOMS",
-    "value_name" => "$request->dormitorios"
-    ],
-    [
-    "id" => "COVERED_AREA",
-    "value_name" => $request->construido +  " m²"
-    ],
-    [
-    "id" => "TOTAL_AREA",
-    "value_name" => $request->terreno + " m²"
-    ]
-    ],
-    "video_id" => "gqkEN9poKM;matterport",
-    "description" => "This is the real estate property description. \n"
-    ]
-    ]);
-        $data = json_decode($response->getBody()->getContents());
+
+        $imagenes = [];
+        $source = $request->input('source');
+        foreach ($source as $s) {
+            $imagenes[] = [
+                "source" => $s,
+            ];
+        }
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'https://api.mercadolibre.com/items', [
+
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Cache-Control' => 'no-cache',
+                'Authorization' => 'Bearer APP_USR-2635352016401575-013115-22bdcde9cee3c30645f87e2be9564efe-1296628171',
+            ],
+            'json' => [
+                "title" => $request->nombre,
+                "category_id" => "MLC157520",
+                "price" => $request->venta,
+                "currency_id" => "CLP",
+                "available_quantity" => 1,
+                "buying_mode" => "classified",
+                "listing_type_id" => "silver",
+                "condition" => $request->condicion,
+                "channels" =>
+                [
+                    "marketplace",
+                ],
+                "pictures" => $imagenes,
+                "seller_contact" => [
+                    "contact" => $request->vendedor,
+                    "other_info" => $request->info,
+                    "area_code" => "56",
+                    "phone" => $request->telefono,
+                    "email" => $request->email,
+                ],
+                "location" => [
+                    "address_line" => $request->direccion,
+                    "zip_code" => "2910000",
+                    "neighborhood" => [
+                        "id" => $request->Barrio,
+                    ],
+                    "latitude" => $request->latitude,
+                    "longitude" => $request->lonngitude,
+                ],
+                "attributes" => [
+                    [
+                        "id" => "ROOMS",
+                        "value_name" => $request->piezas,
+                    ],
+                    [
+                        "id" => "FULL_BATHROOMS",
+                        "value_name" => $request->baños,
+                    ],
+                    [
+                        "id" => "PARKING_LOTS",
+                        "value_name" => $request->estacionamiento,
+                    ],
+                    [
+                        "id" => "BEDROOMS",
+                        "value_name" => $request->dormitorios,
+                    ],
+                    [
+                        "id" => "COVERED_AREA",
+                        "value_name" => $request->construido . " m2",
+                    ],
+                    [
+                        "id" => "TOTAL_AREA",
+                        "value_name" => $request->terreno . " m2",
+                    ],
+                ],
+
+            ],
+        ]);
+        return redirect('user.crearpropiedades');
     }
 
     public function comunas(Request $request)

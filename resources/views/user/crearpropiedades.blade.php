@@ -75,36 +75,11 @@
                     </span>
                 @enderror
             </div>
-
-            <div class="form-group">
-                <label for="arriendo" class="control-label">{{ __('Valor de arriendo') }}</label>
-                <input type="number" class="form-control @error('arriendo') is-invalid @enderror" name="arriendo"
-                    id="arriendo" value="{{ old('arriendo') }}">
-                @error('arriendo')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
             <div class="form-group">
                 <label for="venta" class="control-label">{{ __('Valor de venta') }}</label>
                 <input type="number" class="form-control @error('venta') is-invalid @enderror" name="venta"
                     id="venta" value="{{ old('venta') }}">
                 @error('venta')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div class="form-group">
-                <label for="tipo" class="control-label">{{ __('Tipo de propiedad') }}</label>
-                <select name="tipo" id="tipo" class="form-control">
-                    <option value="">---Selecciona una Opcion---</option>
-                    <option value="Casa">{{ __('Casa') }}</option>
-                    <option value="Departamento">{{ __('Departamento') }}</option>
-                    <option value="Oficina">{{ __('Oficina') }}</option>
-                </select>
-                @error('tipo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
