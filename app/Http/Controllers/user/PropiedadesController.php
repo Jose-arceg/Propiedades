@@ -51,6 +51,7 @@ class PropiedadesController extends Controller
     imagenes::Create($imagen);
     }
     }*/
+
     public function publicar(Request $request)
     {
 
