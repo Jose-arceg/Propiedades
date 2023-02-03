@@ -11,9 +11,11 @@ use Illuminate\Http\Request;
 
 class PropiedadesController extends Controller
 {
+    private $client;
     public function __construct()
     {
         $this->middleware('auth');
+        $this->client = new \GuzzleHttp\Client();
     }
     public function mispropiedades()
     {
@@ -55,10 +57,7 @@ class PropiedadesController extends Controller
     private $hasBeenRelaunched = false;
     public function publicar(Request $request)
     {
-        
         $user = User::findOrFail(Auth()->id());
-        $token = $user->token;
-        $rtoken = $user->rtoken;
         $imagenes = [];
         $source = $request->input('source');
         foreach ($source as $s) {
@@ -66,15 +65,13 @@ class PropiedadesController extends Controller
                 "source" => $s,
             ];
         }
-        $client = new \GuzzleHttp\Client();
-
         try {
-            $response = $client->request('POST', 'https://api.mercadolibre.com/items', [
+            $response = $this->client->request('POST', 'https://api.mercadolibre.com/items', [
 
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'Cache-Control' => 'no-cache',
-                    'Authorization' => 'Bearer ' . $token,
+                    'Authorization' => 'Bearer ' . $user->token,
                 ],
                 'json' => [
                     "title" => $request->nombre,
@@ -143,7 +140,7 @@ class PropiedadesController extends Controller
                 $this->hasBeenRelaunched = true;
                 return $this->publicar($request);
             }
-        }finally {
+        } finally {
             $this->hasBeenRelaunched = false;
         }
         $data = json_decode($response->getBody()->getContents());
@@ -153,8 +150,7 @@ class PropiedadesController extends Controller
     public function regenerarToken($user)
     {
         $rtoken = $user->rtoken;
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', 'https://api.mercadolibre.com/oauth/token', [
+        $response = $this->client->request('POST', 'https://api.mercadolibre.com/oauth/token', [
 
             'headers' => [
                 'Content-Type' => 'application/json',
@@ -175,8 +171,7 @@ class PropiedadesController extends Controller
 
     public function comunas(Request $request)
     {
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://api.mercadolibre.com/classified_locations/states/' . $request->region . '', [
+        $response = $this->client->request('GET', 'https://api.mercadolibre.com/classified_locations/states/' . $request->region . '', [
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Cache-Control' => 'no-cache',
@@ -192,8 +187,7 @@ class PropiedadesController extends Controller
     }
     public function barrios(Request $request)
     {
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://api.mercadolibre.com/classified_locations/cities/' . $request->comuna . '', [
+        $response = $this->client->request('GET', 'https://api.mercadolibre.com/classified_locations/cities/' . $request->comuna . '', [
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Cache-Control' => 'no-cache',
@@ -210,8 +204,7 @@ class PropiedadesController extends Controller
 
     public function location(Request $request)
     {
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://api.mercadolibre.com/classified_locations/neighborhoods/' . $request->barrio . '', [
+        $response = $this->client->request('GET', 'https://api.mercadolibre.com/classified_locations/neighborhoods/' . $request->barrio . '', [
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Cache-Control' => 'no-cache',
