@@ -31,25 +31,20 @@ class HomeController extends Controller
             $user = User::findOrFail(Auth()->id());
             $user->code = $code;
             $user->save();
+            return redirect('/home');
         }
         if ($code === null) {
             return redirect('https://auth.mercadolibre.cl/authorization?response_type=code&client_id=2635352016401575&redirect_uri=http://localhost:8000/home');
         }
-
         $token = $user->token;
         if ($token === null) {
-            $this->token();
-        }
-
-        if (!$code && $token) {
-            return redirect('/home');
+            $this->token($user);
         }
         return view('home');
     }
 
-    public function token()
+    public function token($user)
     {
-        $user = User::findOrFail(Auth()->id());
         $code = $user->code;
         $client = new \GuzzleHttp\Client();
         $response = $client->request('POST', 'https://api.mercadolibre.com/oauth/token', [

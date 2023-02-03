@@ -2,10 +2,6 @@
 @section('content')
     <div class="parent">
         <div class="izquierda">
-            <a
-                href="https://auth.mercadolibre.cl/authorization?response_type=code&client_id=2635352016401575&redirect_uri=http://localhost:8000/home">Dar
-                permiso a la app</a>
-            <a href="{{ route('token') }}">Generar token</a>
             <form action="{{ route('publicar') }}" method="post">
                 @csrf
                 <div class="form-group">
