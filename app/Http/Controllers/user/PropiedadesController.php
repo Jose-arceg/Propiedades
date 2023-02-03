@@ -55,6 +55,7 @@ class PropiedadesController extends Controller
     private $hasBeenRelaunched = false;
     public function publicar(Request $request)
     {
+        
         $user = User::findOrFail(Auth()->id());
         $token = $user->token;
         $rtoken = $user->rtoken;
@@ -145,6 +146,7 @@ class PropiedadesController extends Controller
         }finally {
             $this->hasBeenRelaunched = false;
         }
+        $data = json_decode($response->getBody()->getContents());
         return redirect('crearpropiedades');
     }
 

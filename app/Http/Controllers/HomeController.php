@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,11 +24,21 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user = User::findOrFail(Auth()->id());
+        $code = $user->code;
         if (!empty($_GET['code'])) {
             $code = $_GET['code'];
             $user = User::findOrFail(Auth()->id());
             $user->code = $code;
             $user->save();
+        }
+        if ($code === null) {
+            return redirect('https://auth.mercadolibre.cl/authorization?response_type=code&client_id=2635352016401575&redirect_uri=http://localhost:8000/home');
+        }
+
+        $token = $user->token;
+        if ($token === null) {
+            $this->token();
         }
         return view('home');
     }
@@ -48,7 +59,7 @@ class HomeController extends Controller
                 'client_id' => '2635352016401575',
                 'client_secret' => 'N0HKlWdefzsVqdqfFjARP6Xx8Nae78a2',
                 'code' => $code,
-                'redirect_uri' => 'http://localhost:8000/home'
+                'redirect_uri' => 'http://localhost:8000/home',
             ],
         ]);
         $data = json_decode($response->getBody()->getContents());
@@ -58,4 +69,14 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+    public function code()
+    {
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'https://auth.mercadolibre.cl/authorization?response_type=code&client_id=2635352016401575&redirect_uri=http://localhost:8000/home', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Cache-Control' => 'no-cache',
+            ],
+        ]);
+    }
 }
