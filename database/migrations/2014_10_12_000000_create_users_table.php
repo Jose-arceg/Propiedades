@@ -17,6 +17,9 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('tipo')->default('user');
+            $table->string('code')->nullable();
+            $table->string('token')->nullable();
+            $table->string('rtoken')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

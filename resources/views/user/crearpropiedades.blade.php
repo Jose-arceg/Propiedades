@@ -2,10 +2,14 @@
 @section('content')
     <div class="parent">
         <div class="izquierda">
+            <a
+                href="https://auth.mercadolibre.cl/authorization?response_type=code&client_id=2635352016401575&redirect_uri=http://localhost:8000/home">Dar
+                permiso a la app</a>
+            <a href="{{ route('token') }}">Generar token</a>
             <form action="{{ route('publicar') }}" method="post">
                 @csrf
                 <div class="form-group">
-                    <label for="vendedor">{{ __('Nombre del vendedor') }}</label>
+                    <label for="v//endedor">{{ __('Nombre del vendedor') }}</label>
                     <input type="text" class="form-control" name="vendedor" id="vendedor">
                 </div>
                 <div class="form-group">
@@ -46,7 +50,7 @@
                     <input type="text" class="form-control" name="direccion" id="direccion">
                 </div>
                 <div class="form-group" id="sources">
-                    <button onclick="createInput()">Añadir foto</button>
+                    <button onclick="createInput(); return false;">Añadir foto</button>
                 </div>
         </div>
         <div class="derecha">
@@ -67,7 +71,7 @@
                     <option value="">---Selecciona una Opcion---</option>
                     <option value="new">{{ __('Nueva') }}</option>
                     <option value="used">{{ __('Usada') }}</option>
-                    <option value="noot_specified">{{ __('No especifica') }}</option>
+                    <option value="not_specified">{{ __('No especifica') }}</option>
                 </select>
                 @error('condicion')
                     <span class="invalid-feedback" role="alert">
@@ -77,8 +81,8 @@
             </div>
             <div class="form-group">
                 <label for="venta" class="control-label">{{ __('Valor de venta') }}</label>
-                <input type="number" class="form-control @error('venta') is-invalid @enderror" name="venta"
-                    id="venta" value="{{ old('venta') }}">
+                <input type="number" class="form-control @error('venta') is-invalid @enderror" min="15000000"
+                    name="venta" id="venta" value="{{ old('venta') }}">
                 @error('venta')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -192,7 +196,7 @@
 
                 for (let i in data.lista) {
                     opciones += '<option value ="' + data.lista[i].id + '">' + data.lista[i]
-                        .name + '</option>';
+                        .name + '</option>'; //
                 }
                 document.getElementById("_Barrio").innerHTML = opciones;
             }).catch(error => console.error(error));
