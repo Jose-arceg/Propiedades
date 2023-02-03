@@ -26,6 +26,7 @@ class HomeController extends Controller
     {
         $user = User::findOrFail(Auth()->id());
         $code = $user->code;
+        $token = $user->token;
         if (!empty($_GET['code'])) {
             $code = $_GET['code'];
             $user = User::findOrFail(Auth()->id());
@@ -33,10 +34,14 @@ class HomeController extends Controller
             $user->save();
             return redirect('/home');
         }
-        if ($code === null) {
-            return redirect('https://auth.mercadolibre.cl/authorization?response_type=code&client_id=2635352016401575&redirect_uri=http://localhost:8000/home');
+        if (!$code) {
+            return redirect(sprintf(
+                'https://auth.mercadolibre.cl/authorization?response_type=code&client_id=%s&redirect_uri=%s',
+                env('ML_CLIENT_ID'),
+                env('ML_REDIRECT_URI')
+            ));
         }
-        $token = $user->token;
+
         if ($token === null) {
             $this->token($user);
         }
@@ -55,10 +60,10 @@ class HomeController extends Controller
             ],
             'json' => [
                 'grant_type' => 'authorization_code',
-                'client_id' => '2635352016401575',
-                'client_secret' => 'N0HKlWdefzsVqdqfFjARP6Xx8Nae78a2',
+                'client_id' => env('ML_CLIENT_ID'),
+                'client_secret' => env('ML_CLIENT_SECRET'),
                 'code' => $code,
-                'redirect_uri' => 'http://localhost:8000/home',
+                'redirect_uri' => env('ML_REDIRECT_URI'),
             ],
         ]);
         $data = json_decode($response->getBody()->getContents());
@@ -70,12 +75,10 @@ class HomeController extends Controller
 
     public function code()
     {
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://auth.mercadolibre.cl/authorization?response_type=code&client_id=2635352016401575&redirect_uri=http://localhost:8000/home', [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Cache-Control' => 'no-cache',
-            ],
-        ]);
+        return redirect(sprintf(
+            'https://auth.mercadolibre.cl/authorization?response_type=code&client_id=%s&redirect_uri=%s',
+            env('ML_CLIENT_ID'),
+            env('ML_REDIRECT_URI')
+        ));
     }
 }
