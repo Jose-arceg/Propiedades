@@ -40,6 +40,10 @@ class HomeController extends Controller
         if ($token === null) {
             $this->token();
         }
+
+        if (!$code && $token) {
+            return redirect('/home');
+        }
         return view('home');
     }
 
