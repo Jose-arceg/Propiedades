@@ -14,7 +14,7 @@ class PublicarPropiedadRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -44,33 +44,33 @@ class PublicarPropiedadRequest extends FormRequest
             'terreno' => ['required', 'integer'],
         ];
     }
-    public function message()
-    {
-        return [
-            'nombre.required' => 'El nombre de la propiedad es requerido',
-            'venta.required' => 'El valor de venta es requerido',
-            'venta.integer' => 'El valor de la propiedad debe ser un numero entero',
-            'condicion.required' => 'La condicion de la propiedad es requerida',
-            'vendedor.required' => 'El nommbre del vendedor es requerido',
-            'info.required' => 'La informacion adicional de la propiedad es requerida',
-            'telefono.required' => 'El numero de telefono es requerido',
-            'telefono.integer' => 'El numero de telefono debe ser un numero',
-            'email.required' => 'El email es requerido',
-            'email.email' => 'El email debe tener un formato de email valido',
-            'direccion.required' => 'La direccion de la propiedad es requerida',
-            'Barrio.required' => 'El barrio de la propiedad es requerido',
-            'piezas.required' => 'La cantidad de piezas es requerida',
-            'piezas.integer' => 'La cantidad de las piezas debe ser un numero entero',
-            'baños.required' => 'La cantidad de baños es requerida',
-            'baños.integer' => 'La cantidad de los baños debe ser un numero entero',
-            'estacionamiento.required' => 'La cantidad de estacionamientos es requerida',
-            'estacionamiento.integer' => 'La cantidad de estacionamientos debe ser un numero entero',
-            'dormitorios.required' => 'La cantidad de dormitorios es requerida',
-            'dormitorios.integer' => 'La cantidad de dormitorios debe ser un numero entero',
-            'construido.required' => 'La cantidad de metros construios es requerida',
-            'construido.integer' => 'La cantidad de metros constuidos debe ser un numero entero',
-            'terreno.required' => 'La cantidad de metros de terreno es requerido',
-            'terreno.integer' => 'La cantidad de metros de terreno debe ser un numero entero',
-        ];
-    }
+    /*public function message()
+{
+return [
+'nombre.required' => 'El nombre de la propiedad es requerido',
+'venta.required' => 'El valor de venta es requerido',
+'venta.integer' => 'El valor de la propiedad debe ser un numero entero',
+'condicion.required' => 'La condicion de la propiedad es requerida',
+'vendedor.required' => 'El nommbre del vendedor es requerido',
+'info.required' => 'La informacion adicional de la propiedad es requerida',
+'telefono.required' => 'El numero de telefono es requerido',
+'telefono.integer' => 'El numero de telefono debe ser un numero',
+'email.required' => 'El email es requerido',
+'email.email' => 'El email debe tener un formato de email valido',
+'direccion.required' => 'La direccion de la propiedad es requerida',
+'Barrio.required' => 'El barrio de la propiedad es requerido',
+'piezas.required' => 'La cantidad de piezas es requerida',
+'piezas.integer' => 'La cantidad de las piezas debe ser un numero entero',
+'baños.required' => 'La cantidad de baños es requerida',
+'baños.integer' => 'La cantidad de los baños debe ser un numero entero',
+'estacionamiento.required' => 'La cantidad de estacionamientos es requerida',
+'estacionamiento.integer' => 'La cantidad de estacionamientos debe ser un numero entero',
+'dormitorios.required' => 'La cantidad de dormitorios es requerida',
+'dormitorios.integer' => 'La cantidad de dormitorios debe ser un numero entero',
+'construido.required' => 'La cantidad de metros construios es requerida',
+'construido.integer' => 'La cantidad de metros constuidos debe ser un numero entero',
+'terreno.required' => 'La cantidad de metros de terreno es requerido',
+'terreno.integer' => 'La cantidad de metros de terreno debe ser un numero entero',
+];
+}*/
 }

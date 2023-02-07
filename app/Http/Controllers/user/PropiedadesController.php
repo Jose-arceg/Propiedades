@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PublicarPropiedadRequest;
 use App\Http\Requests\StorePropiedadRequest;
 use App\Models\Propiedad;
 use App\Models\Region;
@@ -55,7 +56,7 @@ class PropiedadesController extends Controller
     }
     }*/
     private $hasBeenRelaunched = false;
-    public function publicar(Request $request)
+    public function publicar(PublicarPropiedadRequest $request)
     {
         $user = User::findOrFail(Auth()->id());
         $imagenes = [];
